@@ -1,11 +1,15 @@
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('path')
 
-require('electron-reload')(__dirname, {
-  electron: path.join(__dirname, 'node_modules', '.bin', 'electron')
-})
-
 let win
+
+ipcMain.on('greet', (event, args) => {
+  console.log(args)
+
+  event.sender.send('greet', {
+    message: 'hi renderer ~'
+  })
+})
 
 const createWindow = () => {
   win = new BrowserWindow({
@@ -35,4 +39,8 @@ app.on('activate', () => {
   if (win === null) {
     createWindow()
   }
+})
+
+require('electron-reload')(__dirname, {
+  electron: path.join(__dirname, 'node_modules', '.bin', 'electron')
 })
