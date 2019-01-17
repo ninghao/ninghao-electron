@@ -20,6 +20,8 @@ function createWindow() {
   childWindow = new BrowserWindow({
     width: 600,
     height: 300,
+    parent: this.mainWindow,
+    modal: true,
   })
 
   childWindow.loadURL(`file://${__dirname}/child_window.html`)
