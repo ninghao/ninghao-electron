@@ -14,6 +14,7 @@
   </div>
   <script>
   const { remote } = require('electron')
+  const windowStateKeeper = require('electron-window-state')
   const { BrowserWindow } = remote
   const mainWindow = remote.getCurrentWindow()
 
@@ -21,14 +22,23 @@
 
   const openBtn = document.getElementById('open')
   openBtn.addEventListener('click', () => {
+    let childWindowState = windowStateKeeper({
+      defaultWidth: 600,
+      defaultHeight: 300
+    })
+
     childWindow = new BrowserWindow({
-      width: 600,
-      height: 300,
+      width: childWindowState.width,
+      height: childWindowState.height,
+      x: childWindowState.x,
+      y: childWindowState.y,
       parent: mainWindow,
       // modal: true,
       // titleBarStyle: 'hidden',
       frame: false
     })
+
+    childWindowState.manage(childWindow)
 
     childWindow.loadURL(`file://${__dirname}/child_window.html`)
 
