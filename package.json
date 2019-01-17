@@ -13,5 +13,8 @@
     "devtron": "^1.4.0",
     "electron": "^4.0.1",
     "electron-reload": "^1.4.0"
+  },
+  "dependencies": {
+    "bootstrap": "^4.2.1"
   }
 }
