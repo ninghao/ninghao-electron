@@ -12,7 +12,20 @@
     <h1 class="display-3">您好</h1>
   </div>
   <script>
+  const { remote } = require('electron')
+  const { BrowserWindow } = remote
+  const mainWindow = remote.getCurrentWindow()
 
+  let childWindow
+
+  childWindow = new BrowserWindow({
+    width: 600,
+    height: 300,
+    parent: mainWindow,
+    modal: true,
+  })
+
+  childWindow.loadURL(`file://${__dirname}/child_window.html`)
   </script>
 </body>
 </html>
