@@ -10,6 +10,7 @@
 <body>
   <div class="d-flex align-items-center justify-content-center flex-column" style="height: 100vh">
     <h1 class="display-3">您好</h1>
+    <button class="btn btn-link btn-lg my-3" id="open">Open</button>
   </div>
   <script>
   const { remote } = require('electron')
@@ -18,14 +19,21 @@
 
   let childWindow
 
-  childWindow = new BrowserWindow({
-    width: 600,
-    height: 300,
-    parent: mainWindow,
-    modal: true,
-  })
+  const openBtn = document.getElementById('open')
+  openBtn.addEventListener('click', () => {
+    childWindow = new BrowserWindow({
+      width: 600,
+      height: 300,
+      parent: mainWindow,
+      modal: true,
+    })
 
-  childWindow.loadURL(`file://${__dirname}/child_window.html`)
+    childWindow.loadURL(`file://${__dirname}/child_window.html`)
+
+    childWindow.on('close', () => {
+      childWindow = null
+    })
+  })
   </script>
 </body>
 </html>
