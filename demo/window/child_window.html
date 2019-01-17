@@ -10,9 +10,16 @@
 <body>
   <div class="d-flex align-items-center justify-content-center flex-column" style="height: 100vh">
     <h1 class="display-3">Child</h1>
+    <button class="btn btn-link btn-lg my-3" id="close">Close</button>
   </div>
   <script>
+  const { remote } = require('electron')
+  const childWindow = remote.getCurrentWindow()
 
+  const closeBtn = document.getElementById('close')
+  closeBtn.addEventListener('click', () => {
+    childWindow.close()
+  })
   </script>
 </body>
 </html>
