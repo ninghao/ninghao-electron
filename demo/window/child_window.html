@@ -21,6 +21,7 @@
     <h1 class="display-3">Child</h1>
     <button class="btn btn-link btn-lg my-3" id="close">Close</button>
   </div>
+  <div class="fixed-bottom bg-light text-secondary text-right p-2" id="state-info">Window State</div>
   <script>
   const { remote } = require('electron')
   const childWindow = remote.getCurrentWindow()
@@ -29,6 +30,15 @@
   closeBtn.addEventListener('click', () => {
     childWindow.close()
   })
+
+  childWindow.on('resize', updateState)
+  childWindow.on('move', updateState)
+
+  function updateState() {
+    const stateInfoContainer = document.getElementById('state-info')
+    const stateInfo = `Size: ${childWindow.getSize()}, Position: ${childWindow.getPosition()}`
+    stateInfoContainer.innerText = stateInfo
+  }
   </script>
 </body>
 </html>
