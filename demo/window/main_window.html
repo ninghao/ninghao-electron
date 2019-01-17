@@ -25,7 +25,9 @@
       width: 600,
       height: 300,
       parent: mainWindow,
-      modal: true,
+      // modal: true,
+      // titleBarStyle: 'hidden',
+      frame: false
     })
 
     childWindow.loadURL(`file://${__dirname}/child_window.html`)
