@@ -1,6 +1,6 @@
 const { BrowserWindow } = require('electron')
 
-let mainWindow
+let mainWindow, childWindow
 
 function createWindow() {
   this.mainWindow = new BrowserWindow({
@@ -16,6 +16,13 @@ function createWindow() {
   this.mainWindow.on('closed', () => {
     this.mainWindow = null
   })
+
+  childWindow = new BrowserWindow({
+    width: 600,
+    height: 300,
+  })
+
+  childWindow.loadURL(`file://${__dirname}/child_window.html`)
 }
 
 module.exports = {
